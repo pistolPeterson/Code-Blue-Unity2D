@@ -13,7 +13,7 @@ public class PlayPunch : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)) //should this be here? 
         {
             player.GetComponent<Animator>().Play("Punch");
         }
