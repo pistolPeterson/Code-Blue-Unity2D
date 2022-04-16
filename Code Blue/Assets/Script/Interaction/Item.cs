@@ -12,7 +12,9 @@ public class Item : MonoBehaviour
     public enum InteractionType { NONE, PickUp, Examine}
     public InteractionType type;
 
-   
+    [Header("Examine ")]
+    public string descriptionText;
+    public Sprite image; 
     private void Reset()
     {
         GetComponent<Collider2D>().isTrigger = true;
@@ -32,10 +34,10 @@ public class Item : MonoBehaviour
                 FindObjectOfType<InteractionSystem>().PickUpItem(gameObject);
                 //disable object 
                gameObject.SetActive(false);
-                Debug.Log("Pickup item");
+              
                 break;
             case InteractionType.Examine:
-                Debug.Log("examine item");
+                FindObjectOfType<InteractionSystem>().ExamineItem(this);
                 break;
             default:
                 Debug.Log("null item");

@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractionSystem : MonoBehaviour
 {
     //an interaction handler class, as referenced by Antarsoft 'Unity 2D Platformer Tutorial 12' 
     //This class is to detects objects by creating a detection point that is looking for items colliders 
-    [Header("Detection Parameters")]
+    [Header("Detection Fields")]
     public Transform detectionPoint;
     private const float detectionRadius = 0.3f;
     public LayerMask detectionLayer;
+
+    [Header("Examine Fields")]
+    public GameObject examineWindow;
+    public Image itemImage;
+    public Text itemDescription;
+    public bool isExamining;
 
 
     [Header("others")]
@@ -58,6 +65,26 @@ public class InteractionSystem : MonoBehaviour
         pickedItems.Add(item);
     }
 
+    public void ExamineItem(Item item)
+    {
+        if(isExamining )
+        {
+            examineWindow.SetActive(false);
+            FindObjectOfType<PlayerMovement>().UnFreezePlayer();
+            isExamining = false;
+
+        }
+        else
+        {
+            itemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;//give option to choose either the original game image or an image of our choosing 
+            itemDescription.text = item.descriptionText;
+            examineWindow.SetActive(true);
+            FindObjectOfType<PlayerMovement>().FreezePlayer();
+           
+            isExamining =true;
+        }
+      
+    }
 
     private void OnDrawGizmosSelected()
     {
