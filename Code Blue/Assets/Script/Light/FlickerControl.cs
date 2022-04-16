@@ -21,16 +21,25 @@ public class FlickerControl : MonoBehaviour
     IEnumerator FlickeringLight()
     {
         isFlickering = true;
-        this.gameObject.GetComponent<Light2D>().enabled = false;
-        timeDelay = Random.Range(0.01f, 0.2f);
-        yield return new WaitForSeconds(timeDelay);
-       
-      
-        this.gameObject.GetComponent<Light2D>().enabled = true;
+        // this.gameObject.GetComponent<Light2D>().enabled = false;
+          this.gameObject.GetComponent<Light2D>().intensity = Random.Range(0.66f, 0.75f);
+        
         timeDelay = Random.Range(0.08f, 1.6f);
         yield return new WaitForSeconds(timeDelay);
-        Debug.Log("flick");
+
+
+        //this.gameObject.GetComponent<Light2D>().enabled = true;
+        this.gameObject.GetComponent<Light2D>().intensity = 1f;
+        timeDelay = Random.Range(0.16f, 3.2f);
+        yield return new WaitForSeconds(timeDelay);
+        
         isFlickering = false;
 
     }
+    
+
+    
+    
+
+
 }
