@@ -178,6 +178,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextboxBase
       objectReference: {fileID: 0}
+    - target: {fileID: 1259576169169802632, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259576169169802632, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259576169169802632, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5294118
+      objectReference: {fileID: 0}
     - target: {fileID: 1259576169169802634, guid: a0a9366a982756349a7907da1b118a51, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -261,6 +273,18 @@ PrefabInstance:
     - target: {fileID: 1259576169169802634, guid: a0a9366a982756349a7907da1b118a51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259576169510909897, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.b
+      value: 0.14901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259576169510909897, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.g
+      value: 0.121568635
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259576169510909897, guid: a0a9366a982756349a7907da1b118a51, type: 3}
+      propertyPath: m_Color.r
+      value: 0.043137256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0a9366a982756349a7907da1b118a51, type: 3}
