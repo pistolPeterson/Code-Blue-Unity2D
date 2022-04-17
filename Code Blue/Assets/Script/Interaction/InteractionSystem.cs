@@ -60,10 +60,7 @@ public class InteractionSystem : MonoBehaviour
     }
 
 
-    public void PickUpItem(GameObject item)
-    {
-        pickedItems.Add(item);
-    }
+   
 
     public void ExamineItem(Item item)
     {
