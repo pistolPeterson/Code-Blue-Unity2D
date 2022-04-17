@@ -46,6 +46,7 @@ public class ExitScene : MonoBehaviour
     public IEnumerator FadeInScene()
     {
         anim.SetBool("Fade", true);
+        Debug.Log("waitign");
         yield return new WaitUntil(() => blackImage.color.a == 1);
         SceneManager.LoadSceneAsync(SceneName);
     }
