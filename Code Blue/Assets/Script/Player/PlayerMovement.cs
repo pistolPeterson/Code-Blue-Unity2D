@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
 
     private bool freezePlayer = false;
+ 
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+      
         //move left/right
         if(freezePlayer)
         {
@@ -130,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void FreezePlayer()
     {
+        body.velocity = Vector2.zero;
         freezePlayer = true;
     }
 
