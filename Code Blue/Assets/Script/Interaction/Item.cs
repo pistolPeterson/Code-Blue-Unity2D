@@ -11,14 +11,21 @@ public class Item : MonoBehaviour
 
    
     public enum InteractionType { NONE, PickUp, Examine}
-    public InteractionType type;
+    public enum ItemType { staticType, Consumables}
+
+    [Header("Attributes ")]
+    public InteractionType interactType;
+    public ItemType type;
+
+
 
     [Header("Examine ")]
     public string descriptionText;
     public Sprite image;
 
     [Header("Unity events")]
-    public UnityEvent customEvent; 
+    public UnityEvent customEvent;
+    public UnityEvent consumeEvent;
     private void Reset()
     {
         GetComponent<Collider2D>().isTrigger = true;
@@ -28,7 +35,7 @@ public class Item : MonoBehaviour
 
     public void Interact()
     {
-        switch (type)
+        switch (interactType)
         {
             case InteractionType.NONE:
                 Debug.Log("NONE");

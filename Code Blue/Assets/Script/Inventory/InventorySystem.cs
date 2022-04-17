@@ -24,8 +24,9 @@ public class InventorySystem : MonoBehaviour
     public GameObject ui_Description_Window;
     public Image description_Image;
     public Text description_Title;
+    public Text description_Text;
 
-   
+
 
     private void Update()
     {
@@ -44,6 +45,8 @@ public class InventorySystem : MonoBehaviour
             FindObjectOfType<PlayerMovement>().FreezePlayer();
         else
             FindObjectOfType<PlayerMovement>().UnFreezePlayer();
+
+        Update_UI();
     }
 
 
@@ -79,15 +82,33 @@ public class InventorySystem : MonoBehaviour
         description_Image.sprite = items_images[id].sprite;
         //set the text 
         description_Title.text = items[id].name;
+        description_Text.text = items[id].GetComponent<Item>().descriptionText;
 
         //show the elements
         description_Image.gameObject.SetActive(true);
         description_Title.gameObject.SetActive(true);
+        description_Text.gameObject.SetActive(true);
     }
 
     public void HideDescription()
     {
         description_Image.gameObject.SetActive(false);
         description_Title.gameObject.SetActive(false);
+        description_Text.gameObject.SetActive(false);
+    }
+
+    public void Consume(int id)
+    {
+        if(items[id].GetComponent<Item>().type == Item.ItemType.Consumables)
+        {
+            items[id].GetComponent<Item>().consumeEvent.Invoke();
+        }
+        //destroy item in very tiny time
+        Destroy(items[id], 0.1f);
+
+        //clear item from list 
+        items.Remove(items[id]);
+      
+
     }
 }
