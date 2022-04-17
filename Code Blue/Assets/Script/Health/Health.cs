@@ -21,7 +21,10 @@ public class Health : MonoBehaviour
         
     }
 
-    
+    public void TakeHealth(float healthAmount)
+    {
+        currentHealth += healthAmount; 
+    }
     
 
     public void TakeDamage(float _damage)
