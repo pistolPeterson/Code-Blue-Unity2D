@@ -18,6 +18,8 @@ public class InteractionSystem : MonoBehaviour
     public Text itemDescription;
     public bool isExamining;
 
+    public GameObject interactAlertIcon; 
+
 
     [Header("others")]
     public List<GameObject> pickedItems = new List<GameObject>();
@@ -29,6 +31,7 @@ public class InteractionSystem : MonoBehaviour
     {
         if(DetectObject())
         {
+           
             if(InteractInput())
             {
               
@@ -48,11 +51,13 @@ public class InteractionSystem : MonoBehaviour
         Collider2D obj = Physics2D.OverlapCircle(detectionPoint.position, detectionRadius, detectionLayer);
         if(obj == null)
         {
+            interactAlertIcon.SetActive(false);
             detectedObject = null;
             return false;
         }
         else
         {
+            interactAlertIcon.SetActive(true);
             detectedObject = obj.gameObject;
             return true;
         }

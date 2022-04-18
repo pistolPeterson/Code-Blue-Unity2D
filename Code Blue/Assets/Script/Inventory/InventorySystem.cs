@@ -108,6 +108,7 @@ public class InventorySystem : MonoBehaviour
 
         //clear item from list 
         items.Remove(items[id]);
+        Update_UI();
       
 
     }
