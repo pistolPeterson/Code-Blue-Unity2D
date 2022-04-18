@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-
+    [Header("movement finetuning ")]
     [SerializeField]
     [Range(5.0f, 15.0f)]
     private float speed;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpPower;
     private Animator anim;
     private BoxCollider2D boxCollider2D;
-
+    [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
 
@@ -27,8 +27,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
 
     private bool freezePlayer = false;
- 
 
+    [Header("camera target fields")]
+    public Transform camTarget;
+    public float aheadAmount, aheadSpeed;
     private void Awake()
     {
         //Grab referneces inside the gameobject 
@@ -54,8 +56,12 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
 
-      
-
+        
+     /* if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            camTarget.localPosition = new Vector3(aheadAmount * Input.GetAxisRaw("Horizontal"), camTarget.localPosition.y, camTarget.localPosition.z);
+        }*/
+     
 
          //set animator parameters
          anim.SetBool("run", horizontalInput != 0);

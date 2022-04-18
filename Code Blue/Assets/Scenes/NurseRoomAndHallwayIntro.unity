@@ -6610,9 +6610,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 1639585871}
   offset: {x: 0, y: 0, z: -8}
-  smoothFactor: 4.4
-  aheadDistance: 0
+  smoothFactor: 3.7
+  aheadDistance: 3
   cameraSpeed: 0
+  lookAhead: 3
 --- !u!114 &1449942457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6679,7 +6680,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.03
+  m_Intensity: 0.95
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 000000000ff28ffe539ee3f2979cafdd473277cb
   m_LightCookieSprite: {fileID: 0}
@@ -6697,7 +6698,7 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 150
+  m_ShapeLightFalloffSize: 50
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -0.5, y: -0.5, z: 0}
@@ -7790,7 +7791,7 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 200
+  m_ShapeLightFalloffSize: 50
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -0.5, y: -0.5, z: 0}
@@ -7805,7 +7806,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681619069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0159712, y: 7.269998, z: -90}
+  m_LocalPosition: {x: -11.8, y: 13.8, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 39691356}
@@ -10785,6 +10786,18 @@ PrefabInstance:
       propertyPath: interactAlertIcon
       value: 
       objectReference: {fileID: 1929108363}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: camTarget
+      value: 
+      objectReference: {fileID: 1639585871}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: aheadSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: aheadAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2948541621468536838, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: m_RootOrder
       value: 1
