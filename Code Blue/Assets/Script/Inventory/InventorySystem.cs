@@ -99,17 +99,20 @@ public class InventorySystem : MonoBehaviour
 
     public void Consume(int id)
     {
+        Debug.Log("consuming item");
         if(items[id].GetComponent<Item>().type == Item.ItemType.Consumables)
         {
             items[id].GetComponent<Item>().consumeEvent.Invoke();
+            //destroy item in very tiny time
+            Destroy(items[id], 0.1f);
+
+            //clear item from list 
+            items.Remove(items[id]);
+            Update_UI();
         }
-        //destroy item in very tiny time
-        Destroy(items[id], 0.1f);
-
-        //clear item from list 
-        items.Remove(items[id]);
-        Update_UI();
-      
-
     }
+    //GETTERS AND SETTERS 
+    public List<GameObject> getInventoryItems() { return items; }
+
+
 }

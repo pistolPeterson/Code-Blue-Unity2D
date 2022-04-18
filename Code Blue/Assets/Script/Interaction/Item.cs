@@ -38,7 +38,7 @@ public class Item : MonoBehaviour
         switch (interactType)
         {
             case InteractionType.NONE:
-                Debug.Log("NONE");
+             
                 break;
             case InteractionType.PickUp:
                 //Add the object to the picked up items list 
