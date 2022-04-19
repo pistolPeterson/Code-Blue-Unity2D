@@ -44,7 +44,7 @@ public class CameraFollow : MonoBehaviour
             }
          
             offset = new Vector3(lookAhead * multiplier,offset.y,offset.z);
-            Debug.Log(lookAhead + " " + multiplier + " " + offset.x);
+          
         }
         else
         {

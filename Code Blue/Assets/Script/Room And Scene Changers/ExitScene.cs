@@ -15,7 +15,7 @@ public class ExitScene : MonoBehaviour
 
     private void Awake()
     {
-       
+        StartCoroutine(FadeIn());
     }
     private void Update()
     {
@@ -49,5 +49,11 @@ public class ExitScene : MonoBehaviour
         Debug.Log("waitign");
         yield return new WaitUntil(() => blackImage.color.a == 1);
         SceneManager.LoadSceneAsync(SceneName);
+    }
+    IEnumerator FadeIn()
+    {
+        anim.Play("FadeIn");
+        yield return new WaitUntil(() => blackImage.color.a == 1);
+       // blackImage.gameObject.SetActive(false);
     }
 }

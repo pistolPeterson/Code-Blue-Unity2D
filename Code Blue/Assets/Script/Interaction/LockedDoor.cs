@@ -32,16 +32,17 @@ public class LockedDoor : MonoBehaviour
             {
                 var item = inventorySystem.getInventoryItems()[i];
                 var itemKey = item.GetComponent<KeyForLockedDoor>();
+                if (itemKey != null)
                  if(itemKey.KeyId == key.KeyId)
                 {
                     found = true;
-                    Debug.Log("We found a match!");
+                   
                     johnPlayDialogue.SayDoorIsUnLocked();
                 }
             }
             if(found == false)
             {
-                Debug.Log("we did not find a match");
+              
                 johnPlayDialogue.SayDoorIsLocked();
             }       
         }
