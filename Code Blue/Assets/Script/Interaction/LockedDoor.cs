@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LockedDoor : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class LockedDoor : MonoBehaviour
                     found = true;
                    
                     johnPlayDialogue.SayDoorIsUnLocked();
+                        StartCoroutine(WaitThenGoBackToMainMenu());
                 }
             }
             if(found == false)
@@ -58,5 +60,11 @@ public class LockedDoor : MonoBehaviour
         if (collision.CompareTag("Player")) { isNearDoor = false; }
     }
 
+    IEnumerator WaitThenGoBackToMainMenu()
+    {
 
+        
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadSceneAsync(0);
+    }
 }

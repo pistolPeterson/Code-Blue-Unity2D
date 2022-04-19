@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Player movement class, a general class for handling physics, movement and the animations as its related to movement 
+    //also added some more quality of life features for better platformer movement 
+    //Refactor to remove the wall jumping mechanic 
+    //Refactor to be able to add jump buffer and hangtime
 
     [Header("movement finetuning ")]
     [SerializeField]
-    [Range(5.0f, 15.0f)]
+    [Range(7.5f, 12.5f)]
     private float speed;
+    [SerializeField]
+    [Range(.1f, .75f)]
+    private float miniJumpScale;
 
     [SerializeField]
-    [Range(5.0f, 15.0f)]
+    [Range(7.50f, 12.5f)]
     private float jumpPower;
+
+  
+
     private Animator anim;
     private BoxCollider2D boxCollider2D;
     [Header("Layers")]
@@ -45,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         //move left/right
         if(freezePlayer)
         {
+            //set player animation to idle?
             return;
         }
          horizontalInput = Input.GetAxis("Horizontal");
@@ -56,11 +67,8 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
 
-        
-     /* if (Input.GetAxisRaw("Horizontal") != 0)
-        {
-            camTarget.localPosition = new Vector3(aheadAmount * Input.GetAxisRaw("Horizontal"), camTarget.localPosition.y, camTarget.localPosition.z);
-        }*/
+       
+     
      
 
          //set animator parameters
@@ -80,11 +88,16 @@ public class PlayerMovement : MonoBehaviour
             else
                 body.gravityScale = normalGravityScale;
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) )
                 Jump();
         }
         else
             wallJumpCoolDown += Time.deltaTime;
+
+        if (Input.GetButtonUp("Jump") && body.velocity.y > 0)
+        {
+            body.velocity = new Vector2(body.velocity.x, body.velocity.y * miniJumpScale);
+        }
     }
 
 
@@ -108,11 +121,12 @@ public class PlayerMovement : MonoBehaviour
 
             wallJumpCoolDown = 0;
         }
+
+       
     }
 
+  
 
-
-   
     private bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
