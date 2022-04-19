@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //Refactor to remove the wall jumping mechanic 
     //Refactor to be able to add jump buffer and hangtime
 
-    [Header("movement finetuning ")]
+    [Header("Movement finetuning ")]
     [SerializeField]
     [Range(7.5f, 12.5f)]
     private float speed;
@@ -18,10 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private float miniJumpScale;
 
     [SerializeField]
-    [Range(7.50f, 12.5f)]
+    [Range(5.0f, 10.0f)]
     private float jumpPower;
 
-  
+    [SerializeField] private float hangTime;
+    private float hangCounter;
+
+    [SerializeField] private float jumpBufferLength;
+    private float jumpBufferCount;
 
     private Animator anim;
     private BoxCollider2D boxCollider2D;
@@ -44,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         //Grab referneces inside the gameobject 
+        //refactor, do it if its null
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -51,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-      
+
+       
         //move left/right
         if(freezePlayer)
         {
@@ -67,33 +73,40 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
 
-       
-     
-     
-
          //set animator parameters
          anim.SetBool("run", horizontalInput != 0);
          anim.SetBool("grounded", isGrounded());
 
 
-        if (wallJumpCoolDown > 0.2f)
+       
+         body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
+        //manage hangtime 
+        if(isGrounded())
         {
-            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
-
-            if (onWall() && !isGrounded())
-            {
-                body.gravityScale = 0;
-                body.velocity = Vector2.zero;
-            }
-            else
-                body.gravityScale = normalGravityScale;
-
-            if (Input.GetKey(KeyCode.Space) )
-                Jump();
+            hangCounter = hangTime;
         }
         else
-            wallJumpCoolDown += Time.deltaTime;
+        {
+            hangCounter -= Time.deltaTime;
+        }
+        //manage jump buffer
+        if(Input.GetButtonDown("Jump"))
+        {
+            jumpBufferCount = jumpBufferLength;
+        }
+        else
+        {
+            jumpBufferCount -= Time.deltaTime; 
+        } 
+        
 
+
+        if (jumpBufferCount >= 0 && hangCounter > 0 )
+                Jump();
+       
+       
+        //mini jump feature
         if (Input.GetButtonUp("Jump") && body.velocity.y > 0)
         {
             body.velocity = new Vector2(body.velocity.x, body.velocity.y * miniJumpScale);
@@ -104,25 +117,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (isGrounded())
-        {
-            body.velocity = new Vector2(body.velocity.x, jumpPower);
-            anim.SetTrigger("jump");
-        }
-        else if (onWall() && !isGrounded())
-        {
-            if (horizontalInput == 0)
-            {
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            else
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
-
-            wallJumpCoolDown = 0;
-        }
-
-       
+        body.velocity = new Vector2(body.velocity.x, jumpPower);
+        anim.SetTrigger("jump");
+        hangCounter = 0;
+        jumpBufferCount = 0;
     }
 
   
@@ -139,8 +137,6 @@ public class PlayerMovement : MonoBehaviour
     private bool onWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0,new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
-
-
         return raycastHit.collider != null;
     }
 
