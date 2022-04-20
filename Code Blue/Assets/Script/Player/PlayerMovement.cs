@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool freezePlayer = false;
 
+    
+
     [Header("camera target fields")]
     public Transform camTarget;
     public float aheadAmount, aheadSpeed;
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+       
     }
 
     private void Update()
@@ -77,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
          anim.SetBool("run", horizontalInput != 0);
          anim.SetBool("grounded", isGrounded());
 
-
+     
        
          body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
 
@@ -99,8 +102,8 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpBufferCount -= Time.deltaTime; 
         } 
-        
-
+      
+       
 
         if (jumpBufferCount >= 0 && hangCounter > 0 )
                 Jump();
@@ -117,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+       
         body.velocity = new Vector2(body.velocity.x, jumpPower);
         anim.SetTrigger("jump");
         hangCounter = 0;
@@ -125,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
   
 
-    private bool isGrounded()
+    public bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
 
