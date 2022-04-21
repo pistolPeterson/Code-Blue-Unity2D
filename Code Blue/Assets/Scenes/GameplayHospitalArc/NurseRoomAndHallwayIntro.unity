@@ -10635,6 +10635,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: maxSpeed
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: camTarget
       value: 
       objectReference: {fileID: 1639585871}
@@ -10657,6 +10661,10 @@ PrefabInstance:
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: jumpBufferLength
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: timeTillMaxSpeed
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: normalGravityScale

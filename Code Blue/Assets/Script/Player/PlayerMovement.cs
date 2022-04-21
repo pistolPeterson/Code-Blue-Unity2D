@@ -6,16 +6,11 @@ public class PlayerMovement : MonoBehaviour
 {
     //Player movement class, a general class for handling physics, movement and the animations as its related to movement 
     //also added some more quality of life features for better platformer movement 
-    //Refactor to remove the wall jumping mechanic 
-    //Refactor to be able to add jump buffer and hangtime
+    
 
-    [Header("Movement finetuning ")]
-    [SerializeField]
-    [Range(7.5f, 12.5f)]
-    private float speed;
-    [SerializeField]
-    [Range(.1f, .75f)]
-    private float miniJumpScale;
+    [Header("Movement finetuning ")] 
+    [SerializeField] [Range(.1f, .75f)] private float miniJumpScale;
+
 
     [SerializeField]
     [Range(5.0f, 10.0f)]
@@ -26,25 +21,25 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float jumpBufferLength;
     private float jumpBufferCount;
-
-    private Animator anim;
-    private BoxCollider2D boxCollider2D;
+    [SerializeField] private float normalGravityScale;
+    [SerializeField] protected float timeTillMaxSpeed;
+    [SerializeField][Range(1.0f, 20.0f)] protected float maxSpeed;
+      
+    private float acceleration;
+    private float currentSpeed;
+    private float runTime;
+ 
     [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
 
-    private float wallJumpCoolDown;
+    private Rigidbody2D body;
+    private Animator anim;
+    private BoxCollider2D boxCollider2D;
+    private bool freezePlayer = false;
     private float horizontalInput;
 
-    [SerializeField]private float normalGravityScale;
-
-    private Rigidbody2D body;
-
-    private bool freezePlayer = false;
-
-    
-
-    [Header("camera target fields")]
+    [Header("Camera Target Fields")]
     public Transform camTarget;
     public float aheadAmount, aheadSpeed;
     private void Awake()
@@ -53,22 +48,19 @@ public class PlayerMovement : MonoBehaviour
         //refactor, do it if its null
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
-       
+        boxCollider2D = GetComponent<BoxCollider2D>();     
     }
 
     private void Update()
-    {
-
-       
+    {      
         //move left/right
         if(freezePlayer)
         {
             //set player animation to idle?
             return;
         }
-         horizontalInput = Input.GetAxis("Horizontal");
-      
+        
+        MovementPressed();
 
         //Flip player when moving left 
         if (horizontalInput > 0.01f)
@@ -79,10 +71,6 @@ public class PlayerMovement : MonoBehaviour
          //set animator parameters
          anim.SetBool("run", horizontalInput != 0);
          anim.SetBool("grounded", isGrounded());
-
-     
-       
-         body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
 
         //manage hangtime 
         if(isGrounded())
@@ -116,6 +104,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        Movement();
+    }
 
 
     private void Jump()
@@ -127,7 +119,43 @@ public class PlayerMovement : MonoBehaviour
         jumpBufferCount = 0;
     }
 
-  
+    private bool MovementPressed()
+    {
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void Movement()
+    {
+        if(MovementPressed())
+        {
+            acceleration = maxSpeed / timeTillMaxSpeed;
+            runTime += Time.deltaTime;
+            currentSpeed = horizontalInput * acceleration * runTime;
+            if (currentSpeed > maxSpeed)
+            {
+                currentSpeed = maxSpeed;
+            }
+            if (currentSpeed < -maxSpeed)
+            {
+                currentSpeed = -maxSpeed;
+            }
+        }
+        else
+        {
+            acceleration = 0;
+            runTime = 0;
+            currentSpeed = 0;
+        }
+        body.velocity = new Vector2(currentSpeed, body.velocity.y);
+    }
 
     public bool isGrounded()
     {

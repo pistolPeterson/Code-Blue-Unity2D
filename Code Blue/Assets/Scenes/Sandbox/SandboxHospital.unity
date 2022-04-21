@@ -388,7 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b73d61d8a72614aad3c2799131f640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
 --- !u!114 &126893853 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 773834962731333868, guid: a39166634c97bb14a932ef4bf693d131, type: 3}
@@ -13882,6 +13881,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: camTarget
       value: 
       objectReference: {fileID: 1639585871}
@@ -13904,6 +13907,14 @@ PrefabInstance:
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: jumpBufferLength
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: sprintMultiplier
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
+      propertyPath: timeTillMaxSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2948541621468536835, guid: 4e05934d26a501d45958c1c1856ec5a1, type: 3}
       propertyPath: normalGravityScale
