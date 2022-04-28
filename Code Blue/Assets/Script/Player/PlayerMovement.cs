@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         //move left/right
         if(freezePlayer)
         {
+          
             //set player animation to idle?
             return;
         }
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
 
          //set animator parameters
-         anim.SetBool("run", horizontalInput != 0);
+       
          anim.SetBool("grounded", isGrounded());
 
         //manage hangtime 
@@ -102,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
         {
             body.velocity = new Vector2(body.velocity.x, body.velocity.y * miniJumpScale);
         }
+
+      
     }
 
     private void FixedUpdate()
@@ -134,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if(MovementPressed())
+        if(MovementPressed() && !freezePlayer)
         {
             acceleration = maxSpeed / timeTillMaxSpeed;
             runTime += Time.deltaTime;
@@ -147,13 +150,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentSpeed = -maxSpeed;
             }
+            anim.SetBool("run", true);
         }
         else
         {
+            anim.SetBool("run", false);
             acceleration = 0;
             runTime = 0;
             currentSpeed = 0;
         }
+       
         body.velocity = new Vector2(currentSpeed, body.velocity.y);
     }
 
